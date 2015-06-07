@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin" >
+
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/login_logo" />
+
+    <LinearLayout
+        android:id="@+id/llTopContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_logo"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="start"
+            android:text="@string/aadhaar_number_label"
+            android:textColor="#212121"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/aadhaar_number"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/barcode"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/app_name"
+                android:onClick="scanUsingQRCode"
+                android:src="@drawable/qrcode_gray" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rdgLoginType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/llTopContent"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/loginTypeCustomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/login_type_customer" />
+
+        <RadioButton
+            android:id="@+id/loginTypePartner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_type_partner" />
+
+        <RadioButton
+            android:id="@+id/loginTypeServiceProvider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_type_service_provider" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rdgLoginType"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal" >
+        
+         <!-- <ImageView
+                android:id="@+id/img_otp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/otp_auth_icon" />
+          -->
+          <ImageView
+                android:id="@+id/img_biometric"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/biometric_auth_icon" />
+        
+    </LinearLayout>
+
+</RelativeLayout>
