@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="categories">
+        <item>Government</item>
+        <item>Loan</item>
+        <item>Agriculture</item>
+        <item>Medical</item>
+        <item>Education</item>
+        <item>Social</item>
+    </string-array>
+    <string-array name="types_of_TB">
+        <item>Active TB</item>
+        <item>MDR TB</item>
+        <item>XDR TB</item>
+    </string-array>
+
+</resources>

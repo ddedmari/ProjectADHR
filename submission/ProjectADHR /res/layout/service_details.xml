@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+     >
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin" >
+
+            <TextView
+                android:id="@+id/lblServiceTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="start"
+                android:text="@string/demo_service_title"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/vTitleDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/lblServiceTitle"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="4dp"
+                android:background="#000000" />
+
+            <TextView
+                android:id="@+id/lblDisplayAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vTitleDivider"
+                android:layout_marginTop="8dp"
+                android:text="@string/lbl_display_amount"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txtAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblDisplayAmount"
+                android:layout_marginTop="8dp"
+                android:gravity="end"
+                android:hint="@string/hint_amount"
+                android:inputType="numberDecimal"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/lblDisplayRateOfInterest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtAmount"
+                android:layout_marginTop="8dp"
+                android:text="@string/lbl_display_rate_of_interest"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txtRateOfInterest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblDisplayRateOfInterest"
+                android:layout_marginTop="8dp"
+                android:gravity="end"
+                android:inputType="numberDecimal"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/lblDisplayTenure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtRateOfInterest"
+                android:layout_marginTop="8dp"
+                android:text="@string/lbl_display_tenure"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txtTenure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblDisplayTenure"
+                android:layout_marginTop="8dp"
+                android:gravity="end"
+                android:inputType="number"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/lblAgreementDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtTenure"
+                android:layout_marginTop="8dp"
+                android:text="@string/demo_agreement_details"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/btnCalculate"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="@string/btn_calculate"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnAgree"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/lblAgreementDescription"
+            android:text="@string/i_agree"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
+    </LinearLayout>
+</RelativeLayout>

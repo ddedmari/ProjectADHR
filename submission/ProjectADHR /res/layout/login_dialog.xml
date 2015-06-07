@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/llTopContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="start"
+            android:text="@string/aadhaar_number_label"
+            android:textColor="#212121"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/login_aadhaar_number"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/barcode"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/app_name"
+                android:onClick="scanUsingQRCode"
+                android:src="@drawable/qrcode_gray" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

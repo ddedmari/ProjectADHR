@@ -1,0 +1,98 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin" >
+
+    <LinearLayout
+        android:id="@+id/lllastdose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/lbl_lastDoze"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/last_dose_date" 
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/text_lastDoze"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llnextdose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/lbl_nextDoze"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/next_dose_date" 
+             android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/text_nextDoze"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lbl_doseinfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="@string/please_provide_the_medicines" />
+
+     <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:gravity="start"
+            android:text="@string/enter_doats_provider_aadhaar_number"
+            android:textColor="#212121"
+            android:textSize="18sp" />
+     
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal" >
+
+        
+        <EditText
+            android:id="@+id/doats_aadhaar_number"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/barcode"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/app_name"
+            android:onClick="scanUsingQRCode"
+            android:src="@drawable/qrcode_gray" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_biometric"
+        android:layout_width="75dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/biometric_auth_icon" />
+
+</LinearLayout>

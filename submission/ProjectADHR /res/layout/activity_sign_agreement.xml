@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:gravity="start"
+        android:text="@string/aadhaar_number_label"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/txtCustomerAadhaarNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="@string/aadhaar_number_hint"
+        android:inputType="number"
+        android:textSize="16sp" />
+    
+    
+
+    <Button
+        android:id="@+id/btnSignCustomer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black_overlay"
+        android:text="@string/btn_sign_customer"
+        android:textColor="#fff" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawablePadding="10dp"
+        android:gravity="start"
+        android:text="@string/aadhaar_number_label"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/txtProviderAadhaarNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="@string/aadhaar_number_hint"
+        android:inputType="number"
+        android:textSize="16sp" />
+    
+    
+
+    <Button
+        android:id="@+id/btnSignServiceProvider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black_overlay"
+        android:text="@string/btn_sign_service_provider"
+        android:textColor="#fff" />
+
+</LinearLayout>

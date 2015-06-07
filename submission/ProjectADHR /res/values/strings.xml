@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SamAadhaar</string>
+    <string name="barcode_image">Barcode Image</string>
+    <string name="verify_button">Verify</string>
+    <string name="aadhaar_number_label">Enter the Aadhaar number</string>
+    <string name="aadhaar_number_hint">Enter your aadhaar</string>
+    <string name="name_label">Name</string>
+    <string name="name_hint">Enter name as per aadhaar</string>
+    <string name="authenticate">Authenticate</string>
+    <string name="otp">Otp</string>
+    <string name="enter_otp">Enter otp</string>
+    <string name="request_for_otp">Request for Otp</string>
+    <string name="login_type_customer">Customer</string>
+    <string name="login_type_partner">Partner</string>
+    <string name="login_type_service_provider">Service Provider</string>
+    <string name="lbl_display_amount">Amount</string>
+    <string name="lbl_display_rate_of_interest">Rate Of Interest</string>
+    <string name="lbl_display_tenure">Tenure</string>
+    <string name="btn_continue">Continue</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_sign_customer">Customer Digital Sign</string>
+    <string name="btn_sign_service_provider">Service Provider Digital Sign</string>
+    <string name="hint_amount">amount</string>
+
+    <!-- Demo Strings -->
+    <string name="demo_service_title">Micro Finance</string>
+    <string name="demo_agreement_details">You have chosen to take a micro finance loan of INR 2,000/- at 9% interest rate which is to be repaid in a tenure of 12 months</string>
+    <string name="please_enter_otp_received_on_your_phone">Please Enter OTP received on your phone</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="authentication_failed">Authentication Failed. Please try again !!</string>
+    <string name="login">Login</string>
+    <string name="btn_calculate">Calculate</string>
+    <string name="i_agree">I Agree</string>
+    <string name="done">Done</string>
+    <string name="congratulations_">Congratulations !!!!</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="choose_TB">Choose the type of treatment</string>
+    <string name="attach_prescription">Attach Prescription</string>
+    <string name="enroll">Enroll</string>
+    <string name="please_provide_the_medicines">Please provide the medicines to the patient and ensure they have consumed it in front of you. Has the patient taken the medicines ?\n</string>
+    <string name="enter_doats_provider_aadhaar_number">Enter DOTS provider aadhaar number</string>
+    <string name="thank_you_remember_to_take_your_next_dose_on_time_">Thank You.. Remember to take your Next Dose on time.</string>
+    <string name="last_dose_date">Last Dose Date</string>
+    <string name="my_profile">My Profile</string>
+    <string name="my_enrollments">My Enrollments</string>
+    <string name="next_dose_date">Next Dose Date</string>
+    <string name="please_login_again_">Please Login Again !!</string>
+    <string name="other_services_will_be_supported_in_future_">Other Services will be supported in Future !!</string>
+
+</resources>
