@@ -95,7 +95,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	public HealthUser getHealthUserDetails(String id) {
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor res = db.rawQuery("select * from " + TABLE_NAME_HEALTH_USERS + " where " + HEALTH_USERS_COLUMN_UID + " = '" + id + "'", null);
+		Cursor res = db.rawQuery("select * from " + TABLE_NAME_HEALTH_USERS + " where " + HEALTH_USERS_COLUMN_UID + " = '" + id + "'  ORDER BY _id DESC", null);
 
 		if (res != null && res.moveToFirst()) {
 			HealthUser user = new HealthUser();
@@ -123,8 +123,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	public ArrayList<HealthUser> getAllHealthDoseHistory(String uid) {
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor res = db.rawQuery("select * from " + TABLE_NAME_HEALTH_USERS + " where " + HEALTH_USERS_COLUMN_ID + " = '" + uid + "'", null);
-
+		Cursor res = db.rawQuery("select * from " + TABLE_NAME_HEALTH_USERS + " where " + HEALTH_USERS_COLUMN_UID + " = '" + uid + "'", null);
 		ArrayList<HealthUser> arrDoseHistory = new ArrayList<>();
 		res.moveToFirst();
 		while (res.isAfterLast() == false) {
@@ -146,6 +145,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		return arrDoseHistory;
 	}
+	
+	
 
 	// ========================== LOAN ====================================
 

@@ -7,10 +7,10 @@
     <ListView
         android:id="@+id/lvServices"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-          android:minHeight="?android:attr/listPreferredItemHeight" 
+        android:layout_height="wrap_content"
         android:cacheColorHint="@android:color/transparent"
-        android:divider="#000000"
-        android:dividerHeight="1dp" />
+        android:divider="#00838F"
+        android:dividerHeight="1dp"
+        android:minHeight="?android:attr/listPreferredItemHeight" />
 
 </LinearLayout>

@@ -11,6 +11,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/profile_placeholder" />
 
     <LinearLayout
@@ -35,11 +36,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="4dp"
             android:drawablePadding="10dp"
             android:gravity="start"
             android:text="Brijesh Masrani"
-            android:textColor="#212121"
+            android:textColor="#757575"
             android:textSize="16sp" />
 
         <TextView
@@ -57,11 +59,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="4dp"
             android:drawablePadding="10dp"
             android:gravity="start"
             android:text="#49, 4th Main, \n8th Cross, \nBTM Layout 2nd Stage, \nBangalore"
-            android:textColor="#212121"
+            android:textColor="#757575"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -70,8 +73,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/black_overlay"
+        android:background="#00838F"
         android:text="@string/my_enrollments"
-        android:textColor="#fff" />
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
@@ -39,8 +40,10 @@ public class ConfirmationActivity extends Activity {
 		setContentView(R.layout.activity_transactionsummary);
 
 		if (!TextUtils.isEmpty(AadhaarUtil.mCurrentUserName)) {
-			getActionBar().setTitle(AadhaarUtil.mCurrentUserName);	
+			getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>"+AadhaarUtil.mCurrentUserName+" </font>"));
 		}
+		
+
 		
 		/*if (null != AadhaarUtil.photo) {
 			getActionBar().setIcon(new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(AadhaarUtil.photo, 0, AadhaarUtil.photo.length)));
@@ -65,8 +68,6 @@ public class ConfirmationActivity extends Activity {
 		});
 
 	};
-
-	
 
 	private void showToast(String text, int duration) {
 		Toast toast = Toast.makeText(this, text, duration);

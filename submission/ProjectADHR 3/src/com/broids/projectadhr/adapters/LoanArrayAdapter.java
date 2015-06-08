@@ -3,6 +3,7 @@ package com.broids.projectadhr.adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class LoanArrayAdapter extends ArrayAdapter<LoanItem> {
 			convertView = LayoutInflater.from(mContext).inflate(R.layout.item_service_name, parent, false);
 			holder = new ViewHolder();
 			holder.lblItemServiceName = (TextView) convertView.findViewById(R.id.lblItemServiceName);
-			
+			holder.lblItemServiceName.setTextSize(15);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();

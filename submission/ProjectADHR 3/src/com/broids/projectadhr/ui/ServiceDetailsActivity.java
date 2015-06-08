@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,7 +51,7 @@ public class ServiceDetailsActivity extends Activity {
 		isCalculated = false;
 		
 		if (!TextUtils.isEmpty(AadhaarUtil.mCurrentUserName)) {
-			getActionBar().setTitle(AadhaarUtil.mCurrentUserName);	
+			getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>"+AadhaarUtil.mCurrentUserName+" </font>"));
 		}
 		
 		/*if (null != AadhaarUtil.photo) {
@@ -123,7 +124,7 @@ public class ServiceDetailsActivity extends Activity {
 					ex.printStackTrace();
 				}
 
-				summaryMessage = new StringBuilder("Summary:\n\n  Total Amount: INR ");
+				summaryMessage = new StringBuilder("Summary:\n\n   Total Amount: INR ");
 				summaryMessage.append(amount);
 				summaryMessage.append("\n   Tenure: ");
 				summaryMessage.append(tenure);
@@ -131,8 +132,8 @@ public class ServiceDetailsActivity extends Activity {
 				summaryMessage.append(roi);
 				
 				float interest = (amount * tenure * roi) / (12 * 100);
-				summaryMessage.append("\n   Interest: ");
-				summaryMessage.append(interest);
+				summaryMessage.append("\n   Interest: INR ");
+				summaryMessage.append(String.format("%.2f", interest));
 				
 				lblAgreementDescription.setText(summaryMessage);
 				AadhaarUtil.mCurrentTransactionSummary = summaryMessage.toString();

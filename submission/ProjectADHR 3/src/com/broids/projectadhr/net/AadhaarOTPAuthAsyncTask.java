@@ -36,71 +36,53 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.aadhaarconnect.bridge.capture.model.kyc.KycCaptureData;
-import com.aadhaarconnect.bridge.gateway.model.KycResponse;
-import com.broids.projectadhr.R;
-import com.broids.projectadhr.ui.HomeScreenActivity;
-import com.broids.projectadhr.utils.AadhaarUtil;
+import com.aadhaarconnect.bridge.capture.model.otp.OtpCaptureData;
+import com.aadhaarconnect.bridge.gateway.model.OtpResponse;
+import com.broids.projectadhr.utils.AadhaarUtil.OnTaskCompleted;
 import com.broids.projectadhr.utils.GsonSerializerUtil;
 
-public class AadhaarKYCAsyncTask extends AsyncTask<String, Void, KycResponse> {
+public class AadhaarOTPAuthAsyncTask extends AsyncTask<String, Void, OtpResponse> {
 	protected static final String CONTENT_HEADER_ACCEPT = "Accept";
 	protected static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 	protected static final String CONTENT_HEADER_TYPE = "Content-Type";
 	protected static final int CONNECTION_TIMEOUT = 10000;
 	protected static final int SOCKET_TIMEOUT = 60000;
 	protected ProgressDialog mDialog;
-	protected Context mContext;
+	protected Context ctx;
 
-	KycCaptureData authData;
-
-	public AadhaarKYCAsyncTask(Context ctx, KycCaptureData authCaptureData) {
-		this.authData = authCaptureData;
-		this.mContext = ctx;
+	OtpCaptureData mOTPData;
+    private OnTaskCompleted listener;
+    
+	public AadhaarOTPAuthAsyncTask(Context ctx, OtpCaptureData authCaptureData,OnTaskCompleted listener) {
+		this.mOTPData = authCaptureData;
+		this.ctx = ctx;
+		this.listener = listener;
 	}
 
 	@Override
 	protected void onPreExecute() {
 		Log.d("AadhaarDemo", " pre execute async");
-		mDialog = new ProgressDialog(mContext);
+		mDialog = new ProgressDialog(ctx);
 		mDialog.setCancelable(true);
-		mDialog.setMessage("Please wait while communicating with the server");
+		mDialog.setMessage("Please Wait.. Requesting OTP (One Time Password)");
 		mDialog.show();
 	}
 
 	@Override
-	protected void onPostExecute(KycResponse response) {
+	protected void onPostExecute(OtpResponse response) {
 		if ((this.mDialog != null) && this.mDialog.isShowing()) {
 			this.mDialog.dismiss();
 		}
-		AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+		listener.onTaskCompleted(response);
+		/*AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
 		alertDialog.setTitle("Status");
 
-		if (response.isSuccess()) {
-			AadhaarUtil.mCurrentaadhaarID = response.getAadhaarId();
-			
-			Toast.makeText(mContext, "Welcome "+response.getKyc().getPoi().getName(), Toast.LENGTH_LONG).show();
-			AadhaarUtil.mCurrentUserName = response.getKyc().getPoi().getName();
-			AadhaarUtil.photo = response.getKyc().getPhoto();
-			AadhaarUtil.mCurrentUserKYC = response.getKyc();
-			
-			Intent intent = new Intent();
-			intent.setClass(mContext, HomeScreenActivity.class);
-			mContext.startActivity(intent);
-		} else {
-			Toast.makeText(mContext, mContext.getString(R.string.authentication_failed), Toast.LENGTH_LONG).show();
-		}
-		
-		/*String msg = "Auth Status: " + (response.isSuccess() ? "success" : "fail")
+		String msg = "Auth Status: " + (response.isSuccess() ? "success" : "fail")
 		        + (null != response.getReferenceCode() ? "\nRefcode: " + response.getReferenceCode() : "");
 		alertDialog.setMessage(msg);
 		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -110,10 +92,11 @@ public class AadhaarKYCAsyncTask extends AsyncTask<String, Void, KycResponse> {
 		});
 
 		alertDialog.show();*/
+
 	}
 
 	@Override
-	protected KycResponse doInBackground(String... params) {
+	protected OtpResponse doInBackground(String... params) {
 		HttpParams httpparams = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(httpparams, CONNECTION_TIMEOUT);
 		HttpConnectionParams.setSoTimeout(httpparams, SOCKET_TIMEOUT);
@@ -124,7 +107,7 @@ public class AadhaarKYCAsyncTask extends AsyncTask<String, Void, KycResponse> {
 		httppost.setHeader(CONTENT_HEADER_ACCEPT, CONTENT_TYPE_APPLICATION_JSON);
 
 		try {
-			StringEntity entity = new StringEntity(GsonSerializerUtil.marshall(authData));
+			StringEntity entity = new StringEntity(GsonSerializerUtil.marshall(mOTPData));
 			entity.setContentType(CONTENT_TYPE_APPLICATION_JSON);
 			httppost.setEntity(entity);
 		} catch (UnsupportedEncodingException e) {
@@ -136,11 +119,12 @@ public class AadhaarKYCAsyncTask extends AsyncTask<String, Void, KycResponse> {
 			String responseContent = EntityUtils.toString(response.getEntity());
 			if (response != null && response.getStatusLine().getStatusCode() == 200) {
 				Log.d("RESPONSE", responseContent);
-				return GsonSerializerUtil.unmarshal(responseContent, KycResponse.class);
+				return GsonSerializerUtil.unmarshal(responseContent, OtpResponse.class);
 			} else {
 				return buildErrorResponse();
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			Log.e("COMMUNICATION_ERROR", "Error while communicating with the server. Check connectivity.", e);
 			return buildErrorResponse();
 		}
@@ -170,8 +154,8 @@ public class AadhaarKYCAsyncTask extends AsyncTask<String, Void, KycResponse> {
 		}
 	}
 
-	private KycResponse buildErrorResponse() {
-		KycResponse response = new KycResponse();
+	private OtpResponse buildErrorResponse() {
+		OtpResponse response = new OtpResponse();
 		response.setSuccess(false);
 		return response;
 	}
@@ -180,7 +164,7 @@ public class AadhaarKYCAsyncTask extends AsyncTask<String, Void, KycResponse> {
 		SSLContext sslContext = SSLContext.getInstance("TLS");
 
 		public TrustAllCertsSSLSocketFactory(KeyStore truststore) throws NoSuchAlgorithmException, KeyManagementException,
-		        KeyStoreException, UnrecoverableKeyException {
+		KeyStoreException, UnrecoverableKeyException {
 			super(truststore);
 			TrustManager tm = new X509TrustManager() {
 				public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
@@ -198,7 +182,7 @@ public class AadhaarKYCAsyncTask extends AsyncTask<String, Void, KycResponse> {
 
 		@Override
 		public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException,
-		        UnknownHostException {
+		UnknownHostException {
 			return sslContext.getSocketFactory().createSocket(socket, host, port, autoClose);
 		}
 

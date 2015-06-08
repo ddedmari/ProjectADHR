@@ -4,12 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/lvMyEnrollments"
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="#00838F"
-        android:dividerHeight="1dp" />
+        
+        android:src="@drawable/login_logo" />
 
 </LinearLayout>

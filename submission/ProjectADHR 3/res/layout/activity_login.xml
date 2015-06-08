@@ -46,8 +46,9 @@
             <ImageView
                 android:id="@+id/barcode"
                 android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
+                android:layout_marginLeft="10dp"
                 android:contentDescription="@string/app_name"
                 android:onClick="scanUsingQRCode"
                 android:src="@drawable/qrcode_gray" />
@@ -92,14 +93,14 @@
         android:layout_marginTop="4dp"
         android:orientation="horizontal" >
         
-         <!-- <ImageView
+         <ImageView
                 android:id="@+id/img_otp"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_weight="1"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/otp_auth_icon" />
-          -->
+         
           <ImageView
                 android:id="@+id/img_biometric"
                 android:layout_width="75dp"

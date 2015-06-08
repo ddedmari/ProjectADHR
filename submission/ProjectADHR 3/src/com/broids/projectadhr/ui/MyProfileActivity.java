@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,6 +24,8 @@ public class MyProfileActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_profile);
+
+		getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>"+AadhaarUtil.mCurrentUserName+" </font>"));
 
 		btnMyEnrollments = (Button) findViewById(R.id.btnMyEnrollments);
 		img_logo = (ImageView) findViewById(R.id.img_logo);

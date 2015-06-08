@@ -4,12 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/lvMyEnrollments"
+    <EditText
+        android:id="@+id/text_enterOTP"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="#00838F"
-        android:dividerHeight="1dp" />
+        android:layout_height="wrap_content" 
+        android:textSize="12sp"/>
 
 </LinearLayout>

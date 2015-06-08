@@ -1,21 +1,30 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="@android:style/Theme.Holo.Light">
-<!--         <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
- -->    </style>
+        <item name="android:actionBarStyle">@style/MyTheme.ActionBarStyle</item>
+        <item name="android:alertDialogStyle">@style/CustomDialogTheme</item>
+    </style>
+
+    <style name="CustomDialogTheme" parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:textColor">#0097A7</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">#00838F</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
     
-     <!-- <style name="MyTheme.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">#03A9F4</item>
-    </style> -->
     
 </resources>

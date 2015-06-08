@@ -5,7 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
+import android.support.v7.widget.LinearLayoutCompat.LayoutParams;
+import android.text.Html;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,10 +34,10 @@ import com.aadhaarconnect.bridge.capture.model.otp.OtpCaptureRequest;
 import com.aadhaarconnect.bridge.capture.model.otp.OtpChannel;
 import com.aadhaarconnect.bridge.gateway.model.OtpResponse;
 import com.broids.projectadhr.R;
-import com.broids.projectadhr.models.LoanItem;
 import com.broids.projectadhr.net.AadhaarAuthAsyncTask;
 import com.broids.projectadhr.net.AadhaarKYCAsyncTask;
-import com.broids.projectadhr.net.AadhaarOTPAsyncTask;
+import com.broids.projectadhr.net.AadhaarOTPAuthAsyncTask;
+import com.broids.projectadhr.net.AadhaarOTPKycAsyncTask;
 import com.broids.projectadhr.utils.AadhaarUtil;
 import com.broids.projectadhr.utils.AadhaarUtil.OnTaskCompleted;
 import com.google.gson.Gson;
@@ -61,6 +62,13 @@ public class LoginActivity extends Activity implements OnTaskCompleted {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
+		getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>"+getString(R.string.app_name)+" </font>"));
+		
+		
+		/*getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getActionBar().setCustomView(R.layout.actionbartitle);
+*/
+        
 		AadhaarUtil.mCurrentUserName = "";
 		AadhaarUtil.mCurrentaadhaarID = "";
 		AadhaarUtil.mCurrentTransactionSummary = "";
@@ -69,7 +77,7 @@ public class LoginActivity extends Activity implements OnTaskCompleted {
 		aadhaarEditTextView = (EditText) findViewById(R.id.aadhaar_number);
 		qrCodeScanner = (ImageView) findViewById(R.id.barcode);
 
-//		btn_OTP = (ImageView) findViewById(R.id.img_otp);
+		btn_OTP = (ImageView) findViewById(R.id.img_otp);
 		btn_BioMetric = (ImageView) findViewById(R.id.img_biometric);
 		radio_userType = (RadioGroup) findViewById(R.id.rdgLoginType);
 		
@@ -95,7 +103,7 @@ public class LoginActivity extends Activity implements OnTaskCompleted {
 			}
 		});
 
-//		btn_OTP.setOnClickListener(clickListner);
+		btn_OTP.setOnClickListener(clickListner);
 		btn_BioMetric.setOnClickListener(clickListner);
 
 		/*
@@ -111,9 +119,9 @@ public class LoginActivity extends Activity implements OnTaskCompleted {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-//			case R.id.img_otp:
-//				authenticate_OTP();
-//				break;
+			case R.id.img_otp:
+				authenticate_OTP();
+				break;
 
 			case R.id.img_biometric:
 //				authenticate_BioMetric();
@@ -166,7 +174,7 @@ public class LoginActivity extends Activity implements OnTaskCompleted {
 		try {
 			startActivityForResult(intent, QRCODE_REQUEST);
 		} catch (Exception e) {
-			showToast("No QR Code scanning modules found.", Toast.LENGTH_LONG);
+			showToast(getResources().getString((R.string.no_qr_reader_application_found)), Toast.LENGTH_LONG);
 		}
 	}
 
@@ -262,7 +270,7 @@ public class LoginActivity extends Activity implements OnTaskCompleted {
 			final OtpCaptureData response = new Gson().fromJson(responseStr,
 					OtpCaptureData.class);
 
-			AadhaarOTPAsyncTask authAsyncTask = new AadhaarOTPAsyncTask(
+			AadhaarOTPAuthAsyncTask authAsyncTask = new AadhaarOTPAuthAsyncTask(
 					LoginActivity.this, response, this);
 			authAsyncTask.execute(BASE_URL + "/otp");
 			return;
@@ -314,53 +322,44 @@ public class LoginActivity extends Activity implements OnTaskCompleted {
 
 				final EditText otpText = new EditText(LoginActivity.this);
 				otpText.setInputType(InputType.TYPE_CLASS_NUMBER);
-				otpText.setPadding(5, 5, 5, 5);
-
-				new AlertDialog.Builder(LoginActivity.this)
+				
+				LayoutParams params = new LayoutParams(
+				        LayoutParams.FILL_PARENT,
+				        LayoutParams.WRAP_CONTENT
+				);
+				params.setMargins(10,10,10,10);
+				otpText.setLayoutParams(params);
+				
+				new AlertDialog.Builder(LoginActivity.this,R.style.CustomDialogTheme)
 				.setTitle("OTP Authentication")
-				.setMessage(
-						R.string.please_enter_otp_received_on_your_phone)
+				.setMessage(R.string.please_enter_otp_received_on_your_phone)
 						.setView(otpText)
 						.setPositiveButton(R.string.confirm,
 								new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
-								Editable value = otpText.getText();
+								
+								com.aadhaarconnect.bridge.capture.model.common.Location loc = new com.aadhaarconnect.bridge.capture.model.common.Location();
+								loc.setType(com.aadhaarconnect.bridge.capture.model.common.LocationType.pincode);
+								loc.setPincode("560001");
+
 								AuthCaptureRequest authCaptureRequest = new AuthCaptureRequest();
-								authCaptureRequest
-								.setAadhaar(aadhaarEditTextView
-										.getText().toString());
-								authCaptureRequest
-								.setModality(Modality.otp);
-								authCaptureRequest.setOtp(value
-										.toString());
-								authCaptureRequest
-								.setCertificateType(CertificateType.preprod);
-
-								Location loc = new Location();
-								loc.setType(LocationType.pincode);
-								loc.setPincode("560076");
+								authCaptureRequest.setAadhaar(aadhaarEditTextView.getText().toString());
 								authCaptureRequest.setLocation(loc);
+								authCaptureRequest.setModality(Modality.otp);
+								authCaptureRequest.setCertificateType(CertificateType.preprod);
+								authCaptureRequest.setOtp(otpText.getText().toString());
 
-								Intent i = new Intent();
-								i = new Intent(
-										"com.aadhaarconnect.bridge.action.AUTHCAPTURE");
-								i.putExtra("REQUEST", new Gson()
-								.toJson(authCaptureRequest));
-								try {
-									startActivityForResult(i,
-											AADHAAR_CONNECT_AUTH_REQUEST);
-								} catch (Exception e) {
-									e.printStackTrace();
-								}
-
+								KycCaptureRequest request = new KycCaptureRequest();
+								request.setConsent(ConsentType.Y);
+								request.setAuthCaptureRequest(authCaptureRequest);
+								
+								AadhaarOTPKycAsyncTask authAsyncTask = new AadhaarOTPKycAsyncTask(LoginActivity.this);
+								authAsyncTask.execute(request);
 							}
-						})
-						.setNegativeButton(R.string.cancel,
-								new DialogInterface.OnClickListener() {
+						}).setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
-								// Do nothing.
 							}
 						}).show();
 			}
@@ -368,5 +367,4 @@ public class LoginActivity extends Activity implements OnTaskCompleted {
 			e.printStackTrace();
 		}
 	}
-
 }

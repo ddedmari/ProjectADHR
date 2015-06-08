@@ -14,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -39,7 +40,9 @@ public class EnrollHealthUserActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_enroll_health_user);
-
+		
+		getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>"+getString(R.string.app_name)+" </font>"));
+		
 		profilePic = (ImageView) findViewById(R.id.img_profilepic);
 		prescriptionPic = (ImageView) findViewById(R.id.img_prescription);
 

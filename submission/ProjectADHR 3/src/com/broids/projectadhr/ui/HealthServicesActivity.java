@@ -15,6 +15,7 @@ import com.broids.projectadhr.R;
 import com.broids.projectadhr.db.DBHelper;
 import com.broids.projectadhr.models.HealthUser;
 import com.broids.projectadhr.utils.AadhaarUtil;
+import com.broids.projectadhr.utils.Constants;
 
 public class HealthServicesActivity extends Activity {
 
@@ -49,8 +50,7 @@ public class HealthServicesActivity extends Activity {
 								.isHealthUserEnrolled(AadhaarUtil.mCurrentaadhaarID);
 
 						if (!userExistsInDb) {
-							Intent healthServiceDetailsIntent = new Intent(
-									HealthServicesActivity.this,
+							Intent healthServiceDetailsIntent = new Intent(HealthServicesActivity.this,
 									EnrollHealthUserActivity.class);
 							startActivity(healthServiceDetailsIntent);
 						} else {
@@ -60,6 +60,14 @@ public class HealthServicesActivity extends Activity {
 							Intent healthServiceDetailsIntent = new Intent(
 									HealthServicesActivity.this,
 									TakeDoseActivity.class);
+							
+							healthServiceDetailsIntent.putExtra("value1", user.getDotsAadhaar());
+							healthServiceDetailsIntent.putExtra("value2", user.getEnrollmentDate());
+							healthServiceDetailsIntent.putExtra("value3", user.isActive());
+							healthServiceDetailsIntent.putExtra("value4", user.getLastDoseDate());
+							healthServiceDetailsIntent.putExtra("value5", user.getNextDoseDate());
+							healthServiceDetailsIntent.putExtra("value6", user.getTreatmentType());
+							
 							startActivity(healthServiceDetailsIntent);
 
 						}

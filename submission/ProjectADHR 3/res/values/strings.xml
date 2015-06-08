@@ -14,7 +14,7 @@
     <string name="request_for_otp">Request for Otp</string>
     <string name="login_type_customer">Customer</string>
     <string name="login_type_partner">Partner</string>
-    <string name="login_type_service_provider">Service Provider</string>
+    <string name="login_type_service_provider">Provider</string>
     <string name="lbl_display_amount">Amount</string>
     <string name="lbl_display_rate_of_interest">Rate Of Interest</string>
     <string name="lbl_display_tenure">Tenure</string>
@@ -22,7 +22,7 @@
     <string name="btn_cancel">Cancel</string>
     <string name="btn_sign_customer">Customer Digital Sign</string>
     <string name="btn_sign_service_provider">Service Provider Digital Sign</string>
-    <string name="hint_amount">amount</string>
+    <string name="hint_amount">Amount</string>
 
     <!-- Demo Strings -->
     <string name="demo_service_title">Micro Finance</string>
@@ -39,10 +39,10 @@
     <string name="name">Name</string>
     <string name="address">Address</string>
     <string name="choose_TB">Choose the type of treatment</string>
-    <string name="attach_prescription">Attach Prescription</string>
+    <string name="attach_prescription">Add Prescription</string>
     <string name="enroll">Enroll</string>
-    <string name="please_provide_the_medicines">Please provide the medicines to the patient and ensure they have consumed it in front of you. Has the patient taken the medicines ?\n</string>
-    <string name="enter_doats_provider_aadhaar_number">Enter DOTS provider aadhaar number</string>
+    <string name="please_provide_the_medicines">Please provide the medicines to the patient and ensure they have consume it in front of you.\n\nHas the patient taken the medicines ? \n\nIf, Yes Confirm Below \n</string>
+    <string name="enter_doats_provider_aadhaar_number">Enter DOTs provider aadhaar number</string>
     <string name="thank_you_remember_to_take_your_next_dose_on_time_">Thank You.. Remember to take your Next Dose on time.</string>
     <string name="last_dose_date">Last Dose Date</string>
     <string name="my_profile">My Profile</string>
@@ -50,5 +50,6 @@
     <string name="next_dose_date">Next Dose Date</string>
     <string name="please_login_again_">Please Login Again !!</string>
     <string name="other_services_will_be_supported_in_future_">Other Services will be supported in Future !!</string>
+    <string name="no_qr_reader_application_found">No QR Reader Application Found.</string>
 
 </resources>

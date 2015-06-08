@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.ListView;
 
 import com.broids.projectadhr.R;
@@ -25,6 +26,8 @@ public class MyEnrollmentsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_enrollments);
 		
+		getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>"+getString(R.string.app_name)+" </font>"));
+
 		lvMyEnrollments = (ListView) findViewById(R.id.lvMyEnrollments);
 		
 		DBHelper dbHelper = new DBHelper(this);
@@ -34,11 +37,10 @@ public class MyEnrollmentsActivity extends Activity {
 		data = new ArrayList<>();
 		for(HealthUser healthUser : healthData) {
 			MyEnrollmentItem item = new MyEnrollmentItem();
-			item.setName(healthUser.getDotsAadhaar() + " " + healthUser.getTreatmentType());
+			item.setName(healthUser.getTreatmentType());
 			item.setAttributeOne(healthUser.getEnrollmentDate());
 			item.setAttributeTwo(healthUser.getNextDoseDate());
 			item.setServiceType(ServiceType.HEALTH);
-			
 			data.add(item);
 		}
 		

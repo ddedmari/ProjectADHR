@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-     >
+    android:layout_alignParentBottom="true" >
 
     <ScrollView
         android:id="@+id/scrollview"
@@ -114,25 +113,33 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/btnCalculate"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:text="@string/btn_calculate"
+            android:layout_weight="1"
+            android:textColor="#FFFFFF"
             android:textSize="16sp"
+            android:background="#00838F"
+            android:layout_margin="10dp"
+            android:text="@string/btn_calculate"
+            
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnAgree"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@id/lblAgreementDescription"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:background="#00838F"
             android:text="@string/i_agree"
+            android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="visible" />
     </LinearLayout>
+
 </RelativeLayout>

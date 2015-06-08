@@ -3,6 +3,7 @@ package com.broids.projectadhr.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,6 +47,7 @@ public class TakeDoseActivity extends Activity {
 		setContentView(R.layout.activity_take_dose);
 		qrCodeScanner = (ImageView) findViewById(R.id.barcode);
 
+		getActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>"+AadhaarUtil.mCurrentUserName+" </font>"));
 		
 		DBHelper dbHelper = new DBHelper(TakeDoseActivity.this);
 		
@@ -88,10 +90,10 @@ public class TakeDoseActivity extends Activity {
 		try {
 			startActivityForResult(intent, QRCODE_REQUEST);
 		} catch (Exception e) {
-			showToast("No QR Code scanning modules found.", Toast.LENGTH_LONG);
+			showToast(getResources().getString((R.string.no_qr_reader_application_found)), Toast.LENGTH_LONG);
 		}
 	}
-	
+
 	public void authenticate_BioMetric() {
 		if (TextUtils.isEmpty(aadhaarNumber.getText().toString())) {
 			showToast(

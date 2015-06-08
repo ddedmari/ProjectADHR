@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
     <LinearLayout
-        
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -29,7 +27,8 @@
             android:id="@+id/editText_enroll_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:editable="false" />
+            android:editable="false"
+            android:textColor="#757575" />
 
         <TextView
             android:layout_width="match_parent"
@@ -43,7 +42,8 @@
             android:id="@+id/editText_enroll_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:editable="false" />
+            android:editable="false"
+            android:textColor="#757575" />
 
         <TextView
             android:layout_width="match_parent"
@@ -66,11 +66,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <Button
-                android:id="@+id/btn_takePhoto"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/attach_prescription" />
+                android:text="Prescription"
+                android:textColor="#000000"
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/img_prescription"
@@ -78,12 +79,31 @@
                 android:layout_height="100dp" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_enroll"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:text="@string/enroll" />
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_takePhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00838F"
+                android:text="@string/attach_prescription"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/btn_enroll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="#00838F"
+                android:text="@string/enroll"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
     </LinearLayout>
+
 </ScrollView>

@@ -36,82 +36,88 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.aadhaarconnect.bridge.capture.model.otp.OtpCaptureData;
-import com.aadhaarconnect.bridge.gateway.model.OtpResponse;
-import com.broids.projectadhr.utils.AadhaarUtil.OnTaskCompleted;
+import com.aadhaarconnect.bridge.gateway.model.KycResponse;
+import com.broids.projectadhr.R;
+import com.broids.projectadhr.ui.HomeScreenActivity;
+import com.broids.projectadhr.utils.AadhaarUtil;
 import com.broids.projectadhr.utils.GsonSerializerUtil;
 
-public class AadhaarOTPAsyncTask extends AsyncTask<String, Void, OtpResponse> {
+
+public class AadhaarOTPKycAsyncTask extends AsyncTask<Object, Void, KycResponse> {
 	protected static final String CONTENT_HEADER_ACCEPT = "Accept";
 	protected static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 	protected static final String CONTENT_HEADER_TYPE = "Content-Type";
 	protected static final int CONNECTION_TIMEOUT = 10000;
 	protected static final int SOCKET_TIMEOUT = 60000;
 	protected ProgressDialog mDialog;
-	protected Context ctx;
+	protected Context mContext;
 
-	OtpCaptureData mOTPData;
-    private OnTaskCompleted listener;
-    
-	public AadhaarOTPAsyncTask(Context ctx, OtpCaptureData authCaptureData,OnTaskCompleted listener) {
-		this.mOTPData = authCaptureData;
-		this.ctx = ctx;
-		this.listener = listener;
+
+	public AadhaarOTPKycAsyncTask(Context ctx) {
+		this.mContext = ctx;
 	}
 
 	@Override
 	protected void onPreExecute() {
 		Log.d("AadhaarDemo", " pre execute async");
-		mDialog = new ProgressDialog(ctx);
+		mDialog = new ProgressDialog(mContext);
 		mDialog.setCancelable(true);
-		mDialog.setMessage("Please Wait.. Requesting OTP (One Time Password)");
+		mDialog.setMessage("Please wait while communicating with the server");
 		mDialog.show();
 	}
 
 	@Override
-	protected void onPostExecute(OtpResponse response) {
+	protected void onPostExecute(KycResponse response) {
+		
 		if ((this.mDialog != null) && this.mDialog.isShowing()) {
 			this.mDialog.dismiss();
 		}
-		listener.onTaskCompleted(response);
-		/*AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
+		AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
 		alertDialog.setTitle("Status");
 
-		String msg = "Auth Status: " + (response.isSuccess() ? "success" : "fail")
-		        + (null != response.getReferenceCode() ? "\nRefcode: " + response.getReferenceCode() : "");
-		alertDialog.setMessage(msg);
-		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-			}
-		});
-
-		alertDialog.show();*/
-
+		if (response.isSuccess()) {
+			AadhaarUtil.mCurrentaadhaarID = response.getAadhaarId();
+			
+			Toast.makeText(mContext, "Welcome "+response.getKyc().getPoi().getName(), Toast.LENGTH_LONG).show();
+			AadhaarUtil.mCurrentUserName = response.getKyc().getPoi().getName();
+			AadhaarUtil.photo = response.getKyc().getPhoto();
+			AadhaarUtil.mCurrentUserKYC = response.getKyc();
+			
+			Intent intent = new Intent();
+			intent.setClass(mContext, HomeScreenActivity.class);
+			mContext.startActivity(intent);
+		} else {
+			Toast.makeText(mContext, mContext.getString(R.string.authentication_failed), Toast.LENGTH_LONG).show();
+		}
+		System.out.println("Brijesh "+response);
 	}
 
 	@Override
-	protected OtpResponse doInBackground(String... params) {
+	protected KycResponse doInBackground(Object... params) {
 		HttpParams httpparams = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(httpparams, CONNECTION_TIMEOUT);
 		HttpConnectionParams.setSoTimeout(httpparams, SOCKET_TIMEOUT);
 
 		HttpClient httpclient = getHttpClient(httpparams);
-		HttpPost httppost = new HttpPost(params[0]);
+		HttpPost httppost = new HttpPost("https://ac.khoslalabs.com/hackgate/hackathon/kyc/raw");
 		httppost.setHeader(CONTENT_HEADER_TYPE, CONTENT_TYPE_APPLICATION_JSON);
 		httppost.setHeader(CONTENT_HEADER_ACCEPT, CONTENT_TYPE_APPLICATION_JSON);
 
 		try {
-			StringEntity entity = new StringEntity(GsonSerializerUtil.marshall(mOTPData));
+			StringEntity entity = new StringEntity(GsonSerializerUtil.marshall(params[0]));
 			entity.setContentType(CONTENT_TYPE_APPLICATION_JSON);
 			httppost.setEntity(entity);
 		} catch (UnsupportedEncodingException e) {
 			Log.e("DEMOAPP", "Error while communicating with the server", e);
+
 		}
 
 		try {
@@ -119,17 +125,21 @@ public class AadhaarOTPAsyncTask extends AsyncTask<String, Void, OtpResponse> {
 			String responseContent = EntityUtils.toString(response.getEntity());
 			if (response != null && response.getStatusLine().getStatusCode() == 200) {
 				Log.d("RESPONSE", responseContent);
-				return GsonSerializerUtil.unmarshal(responseContent, OtpResponse.class);
+				KycResponse kycRresponse = GsonSerializerUtil.unmarshal(responseContent, KycResponse.class);
+				return kycRresponse;
 			} else {
 				return buildErrorResponse();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			Log.e("COMMUNICATION_ERROR", "Error while communicating with the server. Check connectivity.", e);
 			return buildErrorResponse();
 		}
 	}
-
+	private KycResponse buildErrorResponse() {
+		KycResponse response = new KycResponse();
+		response.setSuccess(false);
+		return response;
+	}
 	private HttpClient getHttpClient(HttpParams params) {
 		try {
 			KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
@@ -152,12 +162,6 @@ public class AadhaarOTPAsyncTask extends AsyncTask<String, Void, OtpResponse> {
 		} catch (Exception e) {
 			return new DefaultHttpClient();
 		}
-	}
-
-	private OtpResponse buildErrorResponse() {
-		OtpResponse response = new OtpResponse();
-		response.setSuccess(false);
-		return response;
 	}
 
 	public static class TrustAllCertsSSLSocketFactory extends SSLSocketFactory {
